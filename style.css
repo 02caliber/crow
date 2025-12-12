@@ -1388,3 +1388,61 @@ footer {
         font-size: 12px;
     }
 }
+
+.glitch-img {
+    width: 100%;
+    height: 100%;
+    /* Фото темной архитектуры */
+    background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop') center/cover;
+    filter: grayscale(100%) brightness(0.7); /* Чуть затемняем */
+    transition: 0.3s;
+}
+
+.glitch-box:hover .glitch-img {
+    filter: grayscale(0%) brightness(1);
+}
+
+.top-bar {
+    background: #111;
+    color: #888;
+    text-align: center;
+    font-size: 10px;
+    padding: 8px 0;
+    letter-spacing: 2px;
+    font-weight: bold;
+    border-bottom: 1px solid #222;
+    position: relative;
+    z-index: 101; /* Поверх меню */
+}
+/* Поправь меню, чтобы оно не перекрывало бар */
+nav {
+    top: 30px; /* Отступ сверху, равный высоте бара */
+}
+
+/* Добавь это в начало style.css или к body */
+body::before {
+    content: "";
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: url('https://grainy-gradients.vercel.app/noise.svg'); /* Текстура шума */
+    opacity: 0.03; /* Очень слабая прозрачность */
+    pointer-events: none;
+    z-index: 9999;
+    animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-5%, -10%); }
+    20% { transform: translate(-15%, 5%); }
+    30% { transform: translate(7%, -25%); }
+    40% { transform: translate(-5%, 25%); }
+    50% { transform: translate(-15%, 10%); }
+    60% { transform: translate(15%, 0%); }
+    70% { transform: translate(0%, 15%); }
+    80% { transform: translate(3%, 35%); }
+    90% { transform: translate(-10%, 10%); }
+}

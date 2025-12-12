@@ -19,6 +19,10 @@
 </head>
 <body>
 
+    <div class="top-bar">
+    FREE SHIPPING ON ORDERS OVER 30.000 ₸  <span style="margin: 0 10px; color: #7B2CBF;">//</span>  WORLDWIDE SHIPPING AVAILABLE
+</div>
+
 <div class="progress-bar"></div>
 <!-- Экран загрузки -->
 <div class="preloader">
@@ -112,13 +116,14 @@
     <section id="drop" class="shop">
         <h2 class="reveal">LATEST DROP</h2>
         
-        <div class="grid">
-            <!-- Карточка 1 -->
+    <div class="grid">
+            <!-- Карточка 1: HOODIE -->
             <div class="card reveal">
                 <div class="image-box">
-                    <div class="overlay"></div>
-                    <!-- Вместо src="" потом вставишь фото -->
-                    <img src="https://via.placeholder.com/400x500/111/333?text=HOODIE" alt="Hoodie">
+                    <!-- Основное фото: Парень в черном худи в темноте -->
+                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=1000&auto=format&fit=crop" class="img-main" alt="Hoodie Front">
+                    <!-- Фото при наведении: Спина или деталь (Атмосфера) -->
+                    <img src="https://images.unsplash.com/photo-1578681994506-b8f463449011?q=80&w=1000&auto=format&fit=crop" class="img-hover" alt="Hoodie Back">
                 </div>
                 <div class="info">
                     <div class="name">
@@ -127,19 +132,18 @@
                     </div>
                     <div class="price-row">
                         <p>22 000 ₸</p>
-                        <!-- Найди кнопку внутри первой карточки -->
-<!-- ТОВАР 1 -->
-<button class="add-btn" onclick="openSizeModal('Hoodie Black', 22000)">+</button>
-
+                        <button class="add-btn" onclick="openSizeModal('Hoodie Black', 22000)">+</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Карточка 2 -->
+            <!-- Карточка 2: T-SHIRT -->
             <div class="card reveal" style="transition-delay: 0.1s;">
                 <div class="image-box">
-                    <div class="overlay"></div>
-                    <img src="https://via.placeholder.com/400x500/111/333?text=T-SHIRT" alt="T-Shirt">
+                    <!-- Основное фото: Черная футболка, уличный стиль -->
+                    <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1000&auto=format&fit=crop" class="img-main" alt="T-Shirt Front">
+                    <!-- Фото при наведении: Текстура или лайфстайл -->
+                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1000&auto=format&fit=crop" class="img-hover" alt="T-Shirt Vibe">
                 </div>
                 <div class="info">
                     <div class="name">
@@ -147,18 +151,18 @@
                     </div>
                     <div class="price-row">
                         <p>12 500 ₸</p>
-                      <!-- Внутри второй карточки -->
-<!-- ТОВАР 2 -->
-<button class="add-btn" onclick="openSizeModal('T-Shirt Crow', 12500)">+</button>
+                        <button class="add-btn" onclick="openSizeModal('T-Shirt Crow', 12500)">+</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Карточка 3 -->
+            <!-- Карточка 3: CAP -->
             <div class="card reveal" style="transition-delay: 0.2s;">
                 <div class="image-box">
-                    <div class="overlay"></div>
-                    <img src="https://via.placeholder.com/400x500/111/333?text=CAP" alt="Cap">
+                    <!-- Основное фото: Черная кепка крупно -->
+                    <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=1000&auto=format&fit=crop" class="img-main" alt="Cap Front">
+                    <!-- Фото при наведении: Силуэт в кепке -->
+                    <img src="https://images.unsplash.com/photo-1556306535-0f09a537f0a3?q=80&w=1000&auto=format&fit=crop" class="img-hover" alt="Cap Vibe">
                 </div>
                 <div class="info">
                     <div class="name">
@@ -166,9 +170,7 @@
                     </div>
                     <div class="price-row">
                         <p>6 900 ₸</p>
-                       <!-- Внутри третьей карточки -->
-<!-- ТОВАР 3 -->
-<button class="add-btn" onclick="openSizeModal('Cap Raven', 6900)">+</button>
+                        <button class="add-btn" onclick="openSizeModal('Cap Raven', 6900)">+</button>
                     </div>
                 </div>
             </div>
@@ -638,19 +640,25 @@ if(nameInput && cardHolder) {
     });
 }
 
-// 2. Эффект наклона карты за мышкой
+// 2. Эффект наклона карты за мышкой (ИСПРАВЛЕНО)
+const cardSection = document.querySelector('.loyalty-section'); // Следим за мышкой только внутри секции
 const card = document.querySelector('.loyalty-card');
-if(card) {
-    document.addEventListener('mousemove', (e) => {
-        if(window.innerWidth < 768) return; // Отключаем на мобилках
+
+if(card && cardSection) {
+    // Двигаем карту, когда мышь внутри секции
+    cardSection.addEventListener('mousemove', (e) => {
+        if(window.innerWidth < 768) return; 
         
-        const x = (window.innerWidth / 2 - e.pageX) / 25;
-        const y = (window.innerHeight / 2 - e.pageY) / 25;
+        // Используем clientX/clientY (координаты окна), чтобы скролл не ломал эффект
+        const x = (window.innerWidth / 2 - e.clientX) / 25;
+        const y = (window.innerHeight / 2 - e.clientY) / 25;
         
-        // Ограничиваем угол поворота, чтобы не крутилась слишком сильно
-        if(Math.abs(x) < 20 && Math.abs(y) < 20) {
-            card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
-        }
+        card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+    });
+
+    // Возвращаем карту в ровное положение, когда мышь уходит
+    cardSection.addEventListener('mouseleave', () => {
+        card.style.transform = `rotateY(0deg) rotateX(0deg)`;
     });
 }
 
